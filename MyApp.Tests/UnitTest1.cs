@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using System.IO;
 
 namespace MyApp.Tests
 {
@@ -27,6 +28,46 @@ namespace MyApp.Tests
         {
             Assert.True(Program.IsLeapYear(1600));
             Assert.True(Program.IsLeapYear(2000));
+        }
+
+        [Fact]
+        public void CorrectInputTest()
+        {
+            StringReader input = new StringReader("2000");
+            Console.SetIn(input);
+            StringWriter output = new StringWriter();
+            Console.SetOut(output);
+            Program.Main();
+            string actual = output.ToString().Split(Environment.NewLine)[1];
+            string expected = "yay";
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void NonIntegerInputTest()
+        {
+            StringReader input = new StringReader("Hello, World!");
+            Console.SetIn(input);
+            StringWriter output = new StringWriter();
+            Console.SetOut(output);
+            Program.Main();
+            string actual = output.ToString().Split(Environment.NewLine)[1];
+            string expected = "The input is not a number";
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void TooLowInputTest()
+        {
+            StringReader input = new StringReader("10");
+            Console.SetIn(input);
+            StringWriter output = new StringWriter();
+            Console.SetOut(output);
+            Program.Main();
+            string actual = output.ToString().Split(Environment.NewLine)[1];
+            string expected = "The input must be 1582 or higher";
+            Assert.Equal(expected, actual);
         }
     }
 }
