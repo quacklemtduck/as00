@@ -6,8 +6,16 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Program p = new Program();
+            Console.WriteLine("Write a year:");
+            string answer = Console.ReadLine();
+            try{
+                int answerInt = int.Parse(answer);
+                Console.WriteLine(IsLeapYear(answerInt) ? "yay" : "nay");
+            }catch(FormatException e){
+                Console.WriteLine("The input is not a number");
+            }catch(Exception e){
+                Console.WriteLine("Something went wrong");
+            }
         }
 
         public static bool IsLeapYear(int year){
