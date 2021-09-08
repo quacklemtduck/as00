@@ -13,7 +13,7 @@ namespace MyApp
                 Console.WriteLine(IsLeapYear(answerInt) ? "yay" : "nay");
             }catch(FormatException e){
                 Console.WriteLine("The input is not a number");
-            }catch(TooLowInputYearException e){
+            }catch(InputYearTooLowException e){
                 Console.WriteLine("The input must be 1582 or higher");
             }catch(Exception e){
                 Console.WriteLine("Something went wrong");
@@ -21,7 +21,7 @@ namespace MyApp
         }
 
         public static bool IsLeapYear(int year){
-            if(year < 1582) throw new TooLowInputYearException();
+            if(year < 1582) throw new InputYearTooLowException();
             if(year % 4 == 0){
                 if(year % 100 == 0 && year % 400 != 0) return false;
                 return true;
@@ -30,12 +30,12 @@ namespace MyApp
         }
 
         [System.Serializable]
-        public class TooLowInputYearException : System.Exception
+        public class InputYearTooLowException : System.Exception
         {
-            public TooLowInputYearException() { }
-            public TooLowInputYearException(string message) : base(message) { }
-            public TooLowInputYearException(string message, System.Exception inner) : base(message, inner) { }
-            protected TooLowInputYearException(
+            public InputYearTooLowException() { }
+            public InputYearTooLowException(string message) : base(message) { }
+            public InputYearTooLowException(string message, System.Exception inner) : base(message, inner) { }
+            protected InputYearTooLowException(
                 System.Runtime.Serialization.SerializationInfo info,
                 System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
